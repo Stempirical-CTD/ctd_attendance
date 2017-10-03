@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Install steps
 
-Things you may want to cover:
+1. Install Ruby 2.4.1
 
-* Ruby version
+        rbenv install 2.4.1
 
-* System dependencies
+2. Install `bundler`
 
-* Configuration
+        gem install bundler
 
-* Database creation
+3. Run `bin/setup`
 
-* Database initialization
+        ./bin/setup
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
