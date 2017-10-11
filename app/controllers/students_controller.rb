@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class StudentsController < ApplicationController
   before_action :authenticate_user!, :authorize_teacher!
-  before_action :set_student, only: [:edit, :update, :destroy]
+  before_action :set_student, only: %i[edit update destroy]
   after_action :verify_authorized
 
   helper_method :sort_column
@@ -34,8 +36,7 @@ class StudentsController < ApplicationController
   end
 
   # GET /students/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /students
   def create
@@ -64,25 +65,26 @@ class StudentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_student
-      @student = Student.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def student_params
-      params.require(:student).permit(
-        :image, :first_name, :last_name, :slack_name, :slack_id, :email,
-        :phone_number, :notes
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_student
+    @student = Student.find(params[:id])
+  end
 
-    def sort_column
-      sort = params[:c]
-      %w(first_name last_name slack_name).include?(sort) ? sort : 'first_name'
-    end
+  # Only allow a trusted parameter "white list" through.
+  def student_params
+    params.require(:student).permit(
+      :image, :first_name, :last_name, :slack_name, :slack_id, :email,
+      :phone_number, :notes
+    )
+  end
 
-    def authorize_teacher!
-      authorize Student
-    end
+  def sort_column
+    sort = params[:c]
+    %w[first_name last_name slack_name].include?(sort) ? sort : 'first_name'
+  end
+
+  def authorize_teacher!
+    authorize Student
+  end
 end

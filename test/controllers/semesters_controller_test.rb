@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class SemestersControllerTest < ActionDispatch::IntegrationTest
@@ -5,40 +7,40 @@ class SemestersControllerTest < ActionDispatch::IntegrationTest
     @semester = semesters(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get semesters_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_semester_url
     assert_response :success
   end
 
-  test "should create semester" do
+  test 'should create semester' do
     assert_difference('Semester.count') do
-      post semesters_url, params: { semester: {  } }
+      post semesters_url, params: { semester: {} }
     end
 
     assert_redirected_to semester_url(Semester.last)
   end
 
-  test "should show semester" do
+  test 'should show semester' do
     get semester_url(@semester)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_semester_url(@semester)
     assert_response :success
   end
 
-  test "should update semester" do
-    patch semester_url(@semester), params: { semester: {  } }
+  test 'should update semester' do
+    patch semester_url(@semester), params: { semester: {} }
     assert_redirected_to semester_url(@semester)
   end
 
-  test "should destroy semester" do
+  test 'should destroy semester' do
     assert_difference('Semester.count', -1) do
       delete semester_url(@semester)
     end

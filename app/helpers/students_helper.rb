@@ -1,7 +1,13 @@
+# frozen_string_literal: true
+
 module StudentsHelper
   def semester_attendance(semester, attendances)
     present = attendances.select &:present
-    percent = (present.size/attendances.size.to_f * 100).round rescue 0
+    percent = begin
+                (present.size / attendances.size.to_f * 100).round
+              rescue
+                0
+              end
     link_to course_semester_path(semester.course_id, semester), class: 'attendance', style: "width: #{percent}%" do
       <<-HTML.html_safe
         <span>#{semester.course.name} | #{semester.name}</span>
@@ -25,7 +31,11 @@ module StudentsHelper
   def student_attendance(student, attendances)
     total = attendances.select { |x| x.student_id == student.id }
     present = total.select &:present
-    percent = (present.size/total.size.to_f * 100).round rescue 0
+    percent = begin
+                (present.size / total.size.to_f * 100).round
+              rescue
+                0
+              end
     link_to student, class: 'attendance', style: "width: #{percent}%" do
       <<~HTML.html_safe
         <span>#{student.first_name}</span>
@@ -34,7 +44,7 @@ module StudentsHelper
     end
   end
 
-  def student_info(student, name)
+  def student_info(_student, name)
     <<~HTML.html_safe
       <h4 class="card-title">#{name.to_s.titleize}</h4>
 

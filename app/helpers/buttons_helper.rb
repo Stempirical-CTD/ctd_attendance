@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ButtonsHelper
   def add_button(path)
     button = <<-HTML.html_safe

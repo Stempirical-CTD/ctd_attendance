@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Project < ApplicationRecord
   has_and_belongs_to_many :students
   has_many :code_reviews
@@ -7,7 +9,7 @@ class Project < ApplicationRecord
 
   # list students not added yet
   def add_student
-    (Student.order(:first_name).all - students).pluck:first_name, :id
+    (Student.order(:first_name).all - students).pluck :first_name, :id
   end
 
   # add student to students via student_id sent through params

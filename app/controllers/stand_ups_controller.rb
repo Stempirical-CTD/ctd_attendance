@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class StandUpsController < ApplicationController
   after_action :verify_authorized
 
   before_action :authenticate_user!, :authorize_teacher!
-  before_action :set_stand_up, only: [:show, :update]
+  before_action :set_stand_up, only: %i[show update]
 
   # GET /stand_ups
   def index
@@ -61,19 +63,20 @@ class StandUpsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_stand_up
-      @stand_up = StandUp.find params[:id]
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def stand_up_params
-      params.require(:stand_up).permit(
-        :project_id, :student_id, :date, :completed, :goals, :obstacles
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_stand_up
+    @stand_up = StandUp.find params[:id]
+  end
 
-    def authorize_teacher!
-      authorize StandUp
-    end
+  # Only allow a trusted parameter "white list" through.
+  def stand_up_params
+    params.require(:stand_up).permit(
+      :project_id, :student_id, :date, :completed, :goals, :obstacles
+    )
+  end
+
+  def authorize_teacher!
+    authorize StandUp
+  end
 end

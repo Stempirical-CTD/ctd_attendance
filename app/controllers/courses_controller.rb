@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CoursesController < ApplicationController
   before_action :authenticate_user!, :authorize_teacher!
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: %i[show edit update destroy]
   after_action :verify_authorized
 
   # GET /courses
@@ -9,8 +11,7 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/1
-  def show
-  end
+  def show; end
 
   # GET /courses/new
   def new
@@ -18,8 +19,7 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /courses
   def create
@@ -50,17 +50,18 @@ class CoursesController < ApplicationController
   end
 
   private
-    def authorize_teacher!
-      authorize Course
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find params[:id]
-    end
+  def authorize_teacher!
+    authorize Course
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def course_params
-      params.require(:course).permit :name, :active
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.find params[:id]
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def course_params
+    params.require(:course).permit :name, :active
+  end
 end

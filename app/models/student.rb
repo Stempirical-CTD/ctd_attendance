@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Student < ApplicationRecord
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :semesters
@@ -11,7 +13,6 @@ class Student < ApplicationRecord
   # nilify_blanks only: %w(first_name last_name slack_name notes image_file_name image_content_type email phone_number slack_id)
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-
 
   # monkey patch to get the slack_id column to get nilified too
   def self.content_columns
@@ -34,7 +35,7 @@ class Student < ApplicationRecord
     # diffrent databases in heroku dev or test
     operator = Rails.env.production? ? 'ILIKE' : 'LIKE'
 
-    columns = %w(first_name last_name)
+    columns = %w[first_name last_name]
 
     # Wrap terms in %'s to allow wildcards
     array_of_terms = (query.split * columns.size).sort.map { |term| "%#{term}%" }
