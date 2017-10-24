@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SortHelper
   def sortable(column, title = nil)
     title ||= column.titleize
@@ -12,6 +14,6 @@ module SortHelper
 
   def sort_direction
     direction = params[:d]
-    %w(asc desc).include?(direction) ? direction : 'asc'
+    %w[asc desc].include?(direction) ? direction : 'asc'
   end
 end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  nilify_blanks types: [:string, :text]
+  nilify_blanks types: %i[string text]
 end

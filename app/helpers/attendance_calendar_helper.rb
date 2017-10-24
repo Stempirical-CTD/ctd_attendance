@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AttendanceCalendarHelper
   def attendance_calendar(yearmonth, attendances)
     @month = Date.new(*yearmonth)
@@ -5,7 +7,7 @@ module AttendanceCalendarHelper
     attendance_table
   end
 
-  HEADER = %w(S M T W T F S)
+  HEADER = %w[S M T W T F S].freeze
   START_DAY = :sunday
 
   def attendance_table
@@ -20,7 +22,7 @@ module AttendanceCalendarHelper
     <<-HTML
       <thead>
         <tr><th colspan="7">#{@month.strftime('%B %Y')}</td></tr>
-        <tr>#{HEADER.map { |day| "<th>#{day}</th>" }.join }</tr>
+        <tr>#{HEADER.map { |day| "<th>#{day}</th>" }.join}</tr>
       </thead>
     HTML
   end
@@ -45,12 +47,10 @@ module AttendanceCalendarHelper
     a = @attendances.find { |x| x.date == day }
 
     button = if a
-      <<-HTML
+               <<-HTML
         <a class="expand" role="button" data-toggle="popover" tabindex="0" title="Day" data-content='#{edit_attendance a}#{delete_attendance a}'></a>
       HTML
-    else
-      nil
-    end
+             end
 
     <<-HTML
       <td class="#{attendance_day_classes day, a}">

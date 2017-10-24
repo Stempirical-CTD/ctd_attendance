@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AttendancesController < ApplicationController
   after_action :verify_authorized
   before_action :authenticate_user!, :authorize_teacher!

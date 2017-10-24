@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # includes markdown support
 module MarkdownHelper
   def full_md(text)

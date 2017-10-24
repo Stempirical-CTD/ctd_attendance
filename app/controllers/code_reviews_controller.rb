@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CodeReviewsController < ApplicationController
-  before_action :set_code_review, only: [:show, :update, :destroy]
-  before_action :set_project, only: [:index, :new, :create, :edit]
+  before_action :set_code_review, only: %i[show update destroy]
+  before_action :set_project, only: %i[index new create edit]
   helper_method :sort_column
 
   # GET /code_reviews
@@ -76,34 +78,35 @@ class CodeReviewsController < ApplicationController
   end
 
   private
-    def alert_errors(resource)
-      flash.alert = resource.errors.to_a.join '. '
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_code_review
-      @code_review = CodeReview.find params[:id]
-    end
+  def alert_errors(resource)
+    flash.alert = resource.errors.to_a.join '. '
+  end
 
-    def set_project
-      @project = Project.find params[:project_id]
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_code_review
+    @code_review = CodeReview.find params[:id]
+  end
 
-    def set_previous_reviews(date)
-      @previous_reviews = CodeReview.where('project_id = ? AND date < ?', @project.id, date)
-                                    .limit(2)
-                                    .order(date: :desc)
-    end
+  def set_project
+    @project = Project.find params[:project_id]
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def code_review_params
-      params.require(:code_review).permit(
-        :date, :loc, :smells, :tests, :failures, :coverage, :comments, :notes
-      )
-    end
+  def set_previous_reviews(date)
+    @previous_reviews = CodeReview.where('project_id = ? AND date < ?', @project.id, date)
+                                  .limit(2)
+                                  .order(date: :desc)
+  end
 
-    def sort_column
-      sort = params[:c]
-      %w(date loc smells tests failures coverage).include?(sort) ? sort : 'date'
-    end
+  # Only allow a trusted parameter "white list" through.
+  def code_review_params
+    params.require(:code_review).permit(
+      :date, :loc, :smells, :tests, :failures, :coverage, :comments, :notes
+    )
+  end
+
+  def sort_column
+    sort = params[:c]
+    %w[date loc smells tests failures coverage].include?(sort) ? sort : 'date'
+  end
 end

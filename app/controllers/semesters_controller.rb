@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class SemestersController < ApplicationController
   before_action :authenticate_user!, :authorize_teacher!
   before_action :set_course # , only: [:index, :new, :create, :show, :edit]
-  before_action :set_semester, only: [:edit, :update, :destroy]
+  before_action :set_semester, only: %i[edit update destroy]
   after_action :verify_authorized
 
   # GET /semesters
@@ -75,27 +77,29 @@ class SemestersController < ApplicationController
   end
 
   private
-    def set_course
-      @course = Course.find params[:course_id]
-    end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_semester
-      @semester = @course.semesters.find params[:id]
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def semester_params
-      params.require(:semester).permit(
-        :name, :active, :add_student, :remove_student, student_ids: [],
-        students_attributes: [
-          :id, attendances_attributes: [
-            :id, :semester_id, :present, :date
-          ]
-        ]
-      )
-    end
+  def set_course
+    @course = Course.find params[:course_id]
+  end
 
-    def authorize_teacher!
-      authorize Semester
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_semester
+    @semester = @course.semesters.find params[:id]
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def semester_params
+    params.require(:semester).permit(
+      :name, :active, :add_student, :remove_student, student_ids: [],
+                                                     students_attributes: [
+                                                       :id, attendances_attributes: %i[
+                                                         id semester_id present date
+                                                       ]
+                                                     ]
+    )
+  end
+
+  def authorize_teacher!
+    authorize Semester
+  end
 end

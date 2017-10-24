@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ProjectCalendarHelper
   def project_calendar(yearmonth, stand_ups)
     @month = Date.new(*yearmonth)
@@ -5,7 +7,7 @@ module ProjectCalendarHelper
     project_table
   end
 
-  HEADER = %w(S M T W T F S)
+  HEADER = %w[S M T W T F S].freeze
   START_DAY = :sunday
 
   def project_table
@@ -29,12 +31,10 @@ module ProjectCalendarHelper
   def project_day_cell(day)
     s = @stand_ups.find { |x| x.date == day }
     button = if s
-      <<-HTML
+               <<-HTML
         <a class="expand" role="button" data-toggle="popover" tabindex="0" title="Day" data-content='#{edit_stand_up s}#{delete_stand_up s}'></a>
       HTML
-    else
-      nil
-    end
+             end
 
     <<-HTML
       <td class="#{project_day_classes day, s}">

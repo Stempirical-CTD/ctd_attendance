@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HeaderHelper
   def destroy
     return if request.path['stand_ups'] || request.path['code_reviews']
@@ -10,11 +12,11 @@ module HeaderHelper
 
   def delete_button(resource)
     path = case resource
-    when Student then student_path resource
-    when Semester then course_semester_path resource.course_id, resource
-    when User then user_path resource
-    when Project then project_path resource
-    else course_path resource
+           when Student then student_path resource
+           when Semester then course_semester_path resource.course_id, resource
+           when User then user_path resource
+           when Project then project_path resource
+           else course_path resource
     end
 
     msg = "Delete this #{resource.class.to_s.downcase}?"

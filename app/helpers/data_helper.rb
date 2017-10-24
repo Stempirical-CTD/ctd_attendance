@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataHelper
   def review_data
     @code_reviews.sort_by(&:date).map do |review|

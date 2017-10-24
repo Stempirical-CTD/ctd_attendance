@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -13,7 +15,7 @@ class StudentPolicy < ApplicationPolicy
   #   define_method name { true }
   # end
 
-  %i(index? new? create? show? edit? update? destroy?).each do |ali|
+  %i[index? new? create? show? edit? update? destroy?].each do |ali|
     alias_method ali, :teacher?
   end
 end
