@@ -1,5 +1,15 @@
 <header>
-  <a href="/">CTD Attendance</a>
+  <a href="/">Code The Dream</a>
 
   <%= destroy if user_signed_in? %>
+
+  <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+
+  <div class="center-wrap">
+      <div class="button" >
+          <%= link_to 'Send Survey',class_surveys_path, method: :post %>
+          <div class="mask"></div>
+      </div>
+  </div>
+
 </header>

@@ -17,6 +17,7 @@ gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5' # for autocomplete API
 gem 'jquery-rails'
 gem 'jquery-ui-rails' # for autocomplete
+gem 'mailgun-ruby' # for sending mail(group)
 gem 'nilify_blanks' # save empty values as nil in db
 gem 'paperclip', '~> 5.0.0' # image processor
 gem 'puma', '~> 3.0'

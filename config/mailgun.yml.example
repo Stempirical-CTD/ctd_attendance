@@ -1,0 +1,17 @@
+development:
+  mailgun_pass:
+  mailgun_user:
+  mailgun_domain:
+  mailgun_api_key:
+
+production:
+  mailgun_pass:
+  mailgun_user:
+  mailgun_domain:
+  mailgun_api_key:
+
+test:
+  mailgun_pass:
+  mailgun_user:
+  mailgun_domain:
+  mailgun_api_key:

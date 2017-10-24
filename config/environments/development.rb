@@ -62,5 +62,18 @@ Rails.application.configure do
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-
+  # For Mailgun
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: MAILGUN_CONFIG[:mailgun_api_key],
+    domain: MAILGUN_CONFIG[:mailgun_domain]
+  }
+  Mail.defaults do
+    delivery_method :smtp, {
+      :port      => 25,
+      :address   => "smtp.mailgun.com",
+      :user_name => MAILGUN_CONFIG[:mailgun_user],
+      :password  => MAILGUN_CONFIG[:mailgun_pass]
+    }
+  end
 end

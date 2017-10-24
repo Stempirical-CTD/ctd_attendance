@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'pages#home'
   get '/preview_review' => 'code_reviews#preview'
-
+  resources :class_surveys, only: :create
   devise_for :users
 
   resources :attendances, only: :destroy
@@ -19,13 +21,13 @@ Rails.application.routes.draw do
       patch '', action: :index # for sortability
     end
 
-    resources :stand_ups, except: [:show, :edit] do
+    resources :stand_ups, except: %i[show edit] do
       collection do
         get ':date/edit' => 'stand_ups#edit', as: :edit # for a cleaner url
       end
     end
 
-    resources :code_reviews, except: [:show, :edit, :new] do
+    resources :code_reviews, except: %i[show edit new] do
       collection do
         patch '', action: :index # need this for sorting columns in table
         get '/form' => 'code_reviews#form' # combines new and edit actions into one
